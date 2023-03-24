@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Hello React!</title>
+<script src="../js/react.development.js"></script>
+<script src="../js/react-dom.development.js"></script>
+<script src="../js/babel.min.js"></script>
+
+</head>
+<body>
+ 
+<div id="test"></div>
+<script type="text/babel">
+class MyComponent extends React.Component {
+    
+    //属性的赋值语句，初始化状态
+    state = {isHot:true}
+    render(){
+        //render是放在哪里？ -- MyComponent原型对象上的一个实例对象，供实例使用
+        //render里面的this是谁？ --  MyComponent的一个实例对象,MyComponet组件实例对象
+        const {isHot} = this.state
+        return <h1 onClick={this.changeWeather}>今天天气比较{isHot ? '炎热' : '凉爽'}</h1>
+    }
+
+    //赋值语句+箭头函数
+    changeWeather = ()=>{
+        const {isHot} = this.state
+        this.setState({isHot:!isHot});
+    }
+        
+}
+
+ReactDOM.render(
+    <MyComponent/>,
+    document.getElementById('test')
+)
+</script>
+<!--
+    执行了ReactDOM.render(<MyComponent/>，发生了什么？
+    1、React解析MyComponent组件标签，找到这个MyComponent组件
+    2、发现这个组件是类组件，随后new 一个MyComponent实例对象，并通过这个实例对象调用到原型上的render方法
+    3、调用这个render函数，将返回的虚拟DOM转为真实DOM,写到页面上
+-->
+ 
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Hello React!</title>
+</head>
+<body>
+ 
+<div id="test"></div>
+<div id="test2"></div>
+<div id="test3"></div>
+<script src="../js/react.development.js"></script>
+<script src="../js/react-dom.development.js"></script>
+<script src="../js/babel.min.js"></script>
+<script src="../js/prop-types.js"></script>
+
+<script type="text/babel">
+//定义函数式组件，利用函数能接收外部参数，来使用props
+//但函数式组件不能用state,refs属性，后续会通过Hooks使用
+function Person(props) {
+    const {name,age,sex} = props
+    return (
+        <ul>
+            <li>姓名：{name}</li>
+            <li>性别：{age+1}</li>
+            <li>年龄：{sex}</li>
+        </ul>
+    )
+        
+}
+
+//对Person的属性加规则，比如不为空，类型限制
+Person.propTypes = {
+    name:PropTypes.string.isRequired,
+    sex:PropTypes.string,
+    age:PropTypes.number,
+    speck:PropTypes.func
+
+}
+
+//设置属性的默认值
+Person.defaultProps = {
+    age:19,
+    sex:"不男不女"
+}
+
+ReactDOM.render(<Person  name="chen" age={18} sex="女"/>,document.getElementById('test'))
+
+</script>
+<!--
+    执行了ReactDOM.render(<MyComponent/>，发生了什么？
+    1、React解析MyComponent组件标签，找到这个MyComponent组件
+    2、发现这个组件是类组件，随后new 一个MyComponent实例对象，并通过这个实例对象调用到原型上的render方法
+    3、调用这个render函数，将返回的虚拟DOM转为真实DOM,写到页面上
+-->
+ 
+</body>
+</html>

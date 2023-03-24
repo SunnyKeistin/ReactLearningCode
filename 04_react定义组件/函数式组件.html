@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Hello React!</title>
+<script src="../js/react.development.js"></script>
+<script src="../js/react-dom.development.js"></script>
+<script src="../js/babel.min.js"></script>
+
+</head>
+<body>
+ 
+<div id="test"></div>
+<script type="text/babel">
+function MyComponent(){
+    console.log(this); //this为undefined,因为babel编译后开启了严格模型(use strict)
+    return <h1>我是由函数式定义的一个【简单】的函数式组件</h1>
+}
+
+
+ReactDOM.render(
+    <MyComponent/>,
+    document.getElementById('test')
+)
+</script>
+<!--
+    执行了ReactDOM.render(<MyComponent/>，发生了什么？
+    1、React解析MyComponent组件标签，找到这个MyComponent组件
+    2、发现这个组件是函数式组件，随后调用这个函数，将返回的虚拟DOM转为真实DOM,写到页面上
+-->
+ 
+</body>
+</html>

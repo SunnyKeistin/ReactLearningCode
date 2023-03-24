@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Hello React!</title>
+</head>
+<body>
+ 
+<div id="test"></div>
+<div id="test2"></div>
+<div id="test3"></div>
+<script src="../js/react.development.js"></script>
+<script src="../js/react-dom.development.js"></script>
+<script src="../js/babel.min.js"></script>
+<script src="../js/prop-types.js"></script>
+
+<script type="text/babel">
+class Demo extends React.Component {
+   setData = () => {
+        const {input1} = this.refs
+        alert(input1.value);
+   }
+
+   setData2 = () => {
+        const {input2} = this.refs
+        alert(input2.value);
+   }
+    render(){
+            
+            //render是放在哪里？ -- MyComponent原型对象上的一个实例对象，供实例使用
+            //render里面的this是谁？ --  MyComponent的一个实例对象,MyComponet组件实例对象
+            return (
+                <div>
+                    <input ref="input1"  type="text" placeholder="请输入字符串"/> &nbsp;
+                    <button onClick={this.setData}>点击弹出左侧字符串</button>&nbsp;
+                    <input ref="input2" onBlur={this.setData2} type="text"  placeholder="请输入字符串"/>&nbsp;
+                </div>
+            )
+        }
+            
+    }
+
+
+
+ReactDOM.render(<Demo />,document.getElementById('test'))
+</script>
+
+ 
+</body>
+</html>
