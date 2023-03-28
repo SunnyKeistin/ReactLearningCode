@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>高阶函数_函数柯里化</title>
+</head>
+<body>
+ 
+<div id="test"></div>
+<script src="../js/react.development.js"></script>
+<script src="../js/react-dom.development.js"></script>
+<script src="../js/babel.min.js"></script>
+<script src="../js/prop-types.js"></script>
+
+<script type="text/babel">
+
+    class Login extends React.Component{
+        //建议使用受控组件，能够省略掉ref
+        //初始化状态
+        state = {
+            username:'',
+            password:''
+        }
+        saveData = (event)=>{
+            
+            event.preventDefault() //阻止表达提交
+            const {username,password} = this.state
+            // alert('用户名：'+${username.value}+'密码：'+${password.value})
+            alert(`你输入的用户名是：${username},你输入的密码是：${password}`)
+
+        }
+        //高阶函数：满足其中一个
+        /*
+        1.方法中的返回值是一个函数，setTimeOut
+        2.函数接收的参数是一个函数
+        */
+       //函数的柯里化，调用的函数，又返回一个函数
+        saveFormData = (dataType,value)=>{
+            this.setState({[dataType]:value})
+            
+        }
+        
+        render(){
+            return (
+                <form onSubmit={this.saveData}>
+                    <input onChange={(event)=>{this.saveFormData('username',event.target.value)}} type="text" placeholder="请输入用户名"/>
+                    <input onChange={(event)=>{this.saveFormData('password',event.target.value)}} type="password" placeholder="请输入密码"/>
+                    <button>提交</button>
+                </form>
+            )
+        }
+    }
+
+    ReactDOM.render(<Login/>,document.getElementById("test"))
+</script>
+
+ 
+</body>
+</html>

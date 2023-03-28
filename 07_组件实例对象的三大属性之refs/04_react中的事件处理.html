@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Hello React!</title>
+</head>
+<body>
+ 
+<div id="test"></div>
+<div id="test2"></div>
+<div id="test3"></div>
+<script src="../js/react.development.js"></script>
+<script src="../js/react-dom.development.js"></script>
+<script src="../js/babel.min.js"></script>
+<script src="../js/prop-types.js"></script>
+
+<script type="text/babel">
+class Demo extends React.Component {
+    /*
+    1.通过onClick属性指定事件处理函数
+        React通过自定义属性事件，而不使用原生的DOM事件--是为了更好的兼容性
+        React中的事件是通过事件委托方式处理的（委托给组件最外层的元素） --是为了提升性能
+    2.通过event.target获得发生事件的DOM元素
+    */
+   inputRef = React.createRef()
+//    inputRef2 = React.createRef()
+
+   setData = ()=>{
+        alert(this.inputRef.current.value)
+   }
+   setData2 = (event)=>{
+        // console.log(event.target.value);
+        alert(event.target.value)
+   }
+    render(){
+            
+            //render是放在哪里？ -- MyComponent原型对象上的一个实例对象，供实例使用
+            //render里面的this是谁？ --  MyComponent的一个实例对象,MyComponet组件实例对象
+            return (
+                <div>
+                    <input ref={this.inputRef}  type="text" placeholder="请输入字符串"/> &nbsp;
+                    <button onClick={this.setData}>点击弹出左侧字符串</button>&nbsp;
+                    <input onBlur={this.setData2} type="text"  placeholder="请输入字符串"/>&nbsp;
+                </div>
+            )
+        }
+            
+    }
+ReactDOM.render(<Demo />,document.getElementById('test'))
+</script>
+
+ 
+</body>
+</html>

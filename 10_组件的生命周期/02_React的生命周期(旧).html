@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>React生命周期</title>
+</head>
+<body>
+ 
+<div id="test"></div>
+<script src="../js/react.development.js"></script>
+<script src="../js/react-dom.development.js"></script>
+<script src="../js/babel.min.js"></script>
+<script src="../js/prop-types.js"></script>
+
+<script type="text/babel">
+
+    class Life extends React.Component{
+
+        death = ()=>{
+            ReactDOM.unmountComponentAtNode(document.getElementById("test"))
+        }
+
+        countNum = ()=>{
+            
+            const {count} = this.state
+            console.log("Life---countNum---",{count})
+            this.setState({count:count+1})
+        }
+
+        force = ()=>{
+            console.log("Life---force---")
+            this.forceUpdate()
+        }
+
+        constructor(props){
+            super(props)
+            console.log("Life---constructor---");
+            this.state = {count:0}
+        }
+
+        //组件是否要更新的钩子函数
+        shouldComponentUpdate(){
+            console.log("Life---shouldComponentUpdate---");
+            return true
+        }
+
+        //组件将要更新时的钩子函数
+        componentWillUpdate(){
+            console.log("Life---componentWillUpdate---");
+
+        }
+
+        //组件将要挂载时
+        componentWillMount(){
+            console.log("Life---componentWillMount---");
+
+        }
+
+        //组件挂载之后
+        componentDidMount(){
+            console.log("Life---componentDidMount---");
+
+        }
+
+        //组件更新完成之后
+        componentDidUpdate(){
+            console.log("Life---componentDidUpdate---");
+
+        }
+
+
+
+        //组件将要卸载时
+        componentWillUnmount(){
+            clearInterval(this.timer)
+
+        }
+        
+        render(){
+            const {count} = this.state
+            console.log("Life---render---");
+            return (
+                <div>
+                    <h3>我是数字{count}</h3>
+                    <button onClick={this.countNum}>点我加1</button>
+                    <button onClick={this.death}>卸载组件</button>
+                    <button onClick={this.force}>不更改状态的值，强制更新</button>
+                </div>
+               
+            )
+        }
+    }
+
+    ReactDOM.render(<Life/>,document.getElementById("test"))
+</script>
+
+ 
+</body>
+</html>
